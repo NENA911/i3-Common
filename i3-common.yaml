@@ -1,0 +1,59 @@
+components:
+  schemas:
+    VersionsArray:
+      type: object
+      required:
+        - versions
+      properties:
+        versions:
+          type: array
+          items:
+            type: object
+            required:
+              - major
+              - minor
+            properties:
+              major:
+                type: integer
+                format: int32
+                description: Version major number
+              minor:
+                type: integer
+                format: int32
+                description: Version minor number
+              vendor:
+                type: string
+                description: Vendor extension of the version
+              serviceInfo:
+                type: object
+                properties:
+                  requiredAlgorithms:
+                    type: array
+                    items:
+                      type: string
+                      enum: [EdDSA, none]
+                    description: alg Header Parameter Values for JWS
+        fingerprint:
+          type: string
+          description: Vendor info
+    ConditionType:
+      type: string
+      enum: [TimePeriodCondition, SipHeaderCondition, AdditionalDataCondition, MimeBodyCondition, LocationCondition, CallSuspicionCondition, SecurityPostureCondition,
+             QueueStateCondition, LostServiceUrnCondition, ServiceStateCondition, CallSourceCondition, BodyPartCondition, RequestUriCondition,
+             NormalNextHopCondition, IncomingQueueCondition, SdpOfferCondition, CapCondition, CallingNumberVerificationStatusCondition]
+    Jws:
+      type: object
+      required:
+        - payload
+        - protected
+        - signature
+      properties:
+        payload:
+          type: string
+          format: byte
+        protected:
+          type: string
+          format: byte
+        signature:
+          type: string
+          format: byte
